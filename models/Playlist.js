@@ -10,18 +10,18 @@ const Playlist= new mongoose.Schema({
         required:true
     },
     owner:{
-        type:mongoose.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"User",
     },
     songs:[
         {
-            type:mongoose.Types.ObjectId,
+            type:mongoose.Schema.Types.ObjectId,
             ref:"song",
           
         }
     ],
     collaborators:[{
-        type:mongoose.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
             ref:"user",
     }]
      

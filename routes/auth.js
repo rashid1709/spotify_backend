@@ -15,7 +15,7 @@ router.post('/register', async (req,res)=>{
  }
  //create new user step 3.1 we do not store password in plain text
  //we convert plain text password to hash
- const hashedPassword = bcrypt.hash(password,10);
+ const hashedPassword = await bcrypt.hash(password,10);
  const newUserData = 
  {email,
 password: hashedPassword,
@@ -42,13 +42,13 @@ router.post('/login', async (req,res)=>{
 
    }
 
-   const isPasswordValid = await bcrypt.compare(password,user.passowrd);
+   const isPasswordValid = await bcrypt.compare(password,user.password);
    if(!isPasswordValid) {
       return res.status(403).json({err:"Invalid Password Credential"});
    }
    const token = await getToken(user.email,user);
    const userToReturn = {...user.toJSON(),token};
-   delete userToReturn.passowrd;
+   delete userToReturn.password;
    return res.status(200).json(userToReturn);
 })
 
